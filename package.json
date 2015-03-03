@@ -1,0 +1,48 @@
+{
+  "name": "fiction",
+  "version": "0.0.1",
+  "description": "Create structured documentation from markdown",
+  "main": "fiction.js",
+  "scripts": {
+    "start": "coffee --compile --bare *.coffee  && uglifyjs fiction.js > fiction.min.js",
+    "debug": "echo \"Run node-inspector & for debugging!\" && coffee -c *.coffee && node --debug-brk test.js",
+    "test": "npm start && node test.js | faucet",
+    "coverage": "npm start && istanbul cover test.js",
+    "coveralls": "npm start && istanbul cover test.js --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lo5/fiction.git"
+  },
+  "keywords": [
+    "markdown",
+    "documentation",
+    "manual",
+    "outline"
+  ],
+  "author": "Prithvi Prabhu <prithvi.prabhu@gmail.com> (http://lofi.in/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lo5/fiction/issues"
+  },
+  "homepage": "https://github.com/lo5/fiction",
+  "devDependencies": {
+    "coffee-script": "^1.9.1",
+    "desugar": "0.0.3",
+    "faucet": "0.0.1",
+    "istanbul": "^0.3.6",
+    "jade": "^1.9.2",
+    "nib": "^1.1.0",
+    "stylus": "^0.50.0",
+    "tape": "^3.5.0",
+    "uglify-js": "^2.4.16"
+  },
+  "dependencies": {
+    "htmlparser2": "^3.8.2",
+    "livereload": "^0.3.6",
+    "lodash": "^3.3.1",
+    "marked": "^0.3.3",
+    "minimist": "^1.1.0",
+    "mkdirp": "^0.5.0"
+  }
+}

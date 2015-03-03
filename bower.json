@@ -1,0 +1,17 @@
+{
+  "name": "fiction",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lo5/fiction",
+  "authors": [
+    "Prithvi Prabhu <prithvi@0xdata.com>"
+  ],
+  "description": "Create structured documentation from markdown",
+  "main": "fiction.js",
+  "keywords": [
+    "markdown",
+    "documentation",
+    "manual",
+    "outline"
+  ],
+  "license": "MIT"
+}
