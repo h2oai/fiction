@@ -3,48 +3,64 @@ htmlparser = require 'htmlparser2'
 
 marked.setOptions smartypants: yes
 
-createNode = (title) -> title: title, children: []
+class OutlineNode
+  constructor: (@title, @content='', @children=[]) ->
 
-fiction = (markdown) ->
+parseOutline = (html) ->
   _level = 0
-  _depth = 0
-  _hierarchy = [ createNode '' ]
   _inHeading = no
-  _text = ''
+  _title = ''
+  _node = null
+  _content = ''
+  outline = [ new OutlineNode '' ]
 
   parser = new htmlparser.Parser
     onopentag: (name, attrs) ->
       switch name
         when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
           _inHeading = yes
-          _text = ''
+          _title = ''
+          _node.content = _content if _content and _node
+          _content = ''
+        else
+          pairs = for k, v of attrs
+            "#{k}=\"#{v}\""
+          attributes = if pairs.length
+            ' ' + pairs.join pairs, ' '
+          else 
+            ''
+          _content += "<#{name}#{attributes}>"
       return
 
     ontext: (text) ->
       if _inHeading
-        _text += text
+        _title += text
+      else
+        _content += text
       return
       
     onclosetag: (name) ->
       switch name
         when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
           level = parseInt name[1], 10
-          if level < _level
-            _depth -= (_level - level)
-            _level = level
-          else if level > _level
-            if 1 isnt level - _level
-              throw new Error "Invalid nesting detected at heading #{level}: #{_text}"
-            _depth++
-            _level = level
 
-          _hierarchy[_depth - 1].children.push _hierarchy[_depth] = createNode _text
+          if 1 < level - _level
+            throw new Error "Invalid nesting detected at heading #{level}: #{_title}"
 
+          _level = level
+          outline[_level - 1].children.push outline[_level] = _node = new OutlineNode _title
           _inHeading = no
+        else
+          _content += "</#{name}>"
       return
 
-  parser.write marked markdown
+  parser.write html
   parser.end()
-  _hierarchy[0].children
+  _node.content = _content if _content and _node # last chunk 
+  outline[0].children
+
+fiction = (markdown) ->
+  html = marked markdown
+  outline = parseOutline html
 
 module.exports = fiction
