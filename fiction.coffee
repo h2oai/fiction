@@ -26,7 +26,7 @@ parseOutline = (html) ->
           pairs = for k, v of attrs
             "#{k}=\"#{v}\""
           attributes = if pairs.length
-            ' ' + pairs.join pairs, ' '
+            ' ' + pairs.join ' '
           else 
             ''
           _content += "<#{name}#{attributes}>"

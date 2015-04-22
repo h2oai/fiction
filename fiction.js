@@ -55,7 +55,7 @@ parseOutline = function(html) {
             }
             return results;
           })();
-          attributes = pairs.length ? ' ' + pairs.join(pairs, ' ') : '';
+          attributes = pairs.length ? ' ' + pairs.join(' ') : '';
           _content += "<" + name + attributes + ">";
       }
     },
