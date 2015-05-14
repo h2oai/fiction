@@ -59,8 +59,27 @@ parseOutline = (html) ->
   _node.content = _content if _content and _node # last chunk 
   outline[0].children
 
+maskMathJax = (markdown) ->
+  tokens = {}
+  tokenCounter = 0
+  masked = markdown.replace /\\\((.+?)\\\)/g, (match, expr) ->
+    token = "xMATHJAXx#{tokenCounter++}"
+    tokens[token] = expr
+    token
+  [ tokens, masked ]
+
+unmaskMathJax = (tokens, html) ->
+  html_ = html
+  for token, expr of tokens
+    html_ = html_.replace token, "\\(#{expr}\\)"
+  html_
+
+toHtml = (markdown) ->
+  [ tokens, masked ] = maskMathJax markdown
+  unmaskMathJax tokens, marked masked
+
 fiction = (markdown) ->
-  html = marked markdown
+  html = toHtml markdown
   outline = parseOutline html
 
 module.exports = fiction

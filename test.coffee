@@ -14,6 +14,23 @@ test 'fails when child headings are more than one level deep', (t) ->
     '''
     fiction input
 
+test 'escapes mathjax entries', (t) ->
+  t.plan 1
+
+  input = '''
+  # Heading 1
+  This is some \\(p_{k}(x)=\frac{e^{f_{k}(x)}}{\sum_{l=1}^{K}e^{f_{l}(x)}},\:k=1,2,…,K\\) expression and here is another one: \\(f_{k0} = 0,\: k=1,2,…,K\\).
+  '''
+
+  expected = [
+    title: 'Heading 1'
+    content: '\n<p>This is some \\(p_{k}(x)=\frac{e^{f_{k}(x)}}{\sum_{l=1}^{K}e^{f_{l}(x)}},\:k=1,2,…,K\\) expression and here is another one: \\(f_{k0} = 0,\: k=1,2,…,K\\).</p>\n'
+    children: []
+  ]
+
+  actual = fiction input
+  t.deepLooseEqual actual, expected
+
 test 'converts markdown to outline', (t) ->
   t.plan 1
 
@@ -77,7 +94,5 @@ test 'converts markdown to outline', (t) ->
   ]
 
   actual = fiction input
-  # console.log JSON.stringify expected, null, 2
-  # console.log JSON.stringify actual, null, 2
   t.deepLooseEqual actual, expected
 

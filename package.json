@@ -1,6 +1,6 @@
 {
   "name": "fiction",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create structured documentation from markdown",
   "main": "fiction.js",
   "scripts": {
