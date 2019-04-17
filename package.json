@@ -1,6 +1,6 @@
 {
   "name": "fiction",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Create structured documentation from markdown",
   "main": "fiction.js",
   "scripts": {
@@ -28,14 +28,14 @@
   "homepage": "https://github.com/lo5/fiction",
   "devDependencies": {
     "coffee-script": "^1.9.1",
-    "coveralls": "^2.11.2",
+    "coveralls": "^3.0.3",
     "faucet": "0.0.1",
-    "istanbul": "^0.3.6",
-    "tape": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "tape": "^4.10.1",
     "uglify-js": "^2.4.16"
   },
   "dependencies": {
     "htmlparser2": "^3.8.2",
-    "marked": "^0.3.3"
+    "marked": "^0.6.2"
   }
 }
