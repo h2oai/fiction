@@ -29,13 +29,13 @@
   "devDependencies": {
     "coffee-script": "^1.9.1",
     "coveralls": "^3.0.3",
-    "faucet": "0.0.1",
+    "faucet": "0.0.4",
     "istanbul": "^0.4.5",
     "tape": "^4.10.1",
     "uglify-js": "^2.4.16"
   },
   "dependencies": {
     "htmlparser2": "^3.8.2",
-    "marked": "^0.6.2"
+    "marked": "^4.0.10"
   }
 }
